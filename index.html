@@ -1,15 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sovy Playground</title>
-    <meta charset="UTF-8" />
-  </head>
+<head>
+  <title>Parcel Sandbox</title>
+  <meta charset="UTF-8" />
+  <style>
+    #name {
+      font-size: 50px;
+    }
+  </style>
+</head>
 
-  <body>
-    <div>Hello Sovy</div>
-    <div>My name is Miroslav Jackanin</div>
-    <div id="name"></div>
+<body>
+<div id="name"></div>
+<span>
+      <button onclick="turnPage(0)"><</button>
+    </span>
+<span>
+      <button onclick="turnPage(1)">></button>
+    </span>
+<script>
+  var path = "https://swapi.co/api/people/";
+  var page = 1;
+  var slash = "/";
+  fetc();
 
-    <script src="src/index.js"></script>
-  </body>
+  function turnPage(num) {
+    if (num === 0) {
+      if (page === 1) {
+        return false;
+      }
+      page = page - 1;
+      fetc();
+    }
+    if (num === 1) {
+      page = page + 1;
+      fetc();
+    }
+    console.log(page);
+  }
+
+  function fetc() {
+    fetch(path.concat(page, slash)).then(function(response) {
+      response.json().then(function(data) {
+        console.log(data);
+        console.log(data.name);
+        document.getElementById("name").innerHTML = data.name;
+      });
+    });
+  }
+</script>
+</body>
 </html>
